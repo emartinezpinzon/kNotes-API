@@ -1,0 +1,7 @@
+.idea
+*.pyc
+*.sqlite3
+*__pycache__
+runserver.bat
+
+push.sh
