@@ -1,7 +1,7 @@
 .idea
 *.pyc
 *.sqlite3
-*__pycache__
+*__pycache__/
 runserver.bat
 
-push.sh
+*migrations/
