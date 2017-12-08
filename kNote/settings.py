@@ -59,9 +59,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'kNote.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+   'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'knote',
+        'USER': 'prefety',
+        'PASSWORD': 'TA8=mGr~@5eUU[6v',
+        'HOST': '18.220.192.155',
+        'PORT': '3306',
     }
 }
 
