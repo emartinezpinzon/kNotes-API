@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from rest_framework.views import APIView
+from rest_framework.authtoken.models import Token
+
 from apps.usuario.models import Autor
 
 class RegistroAutorList(APIView):
@@ -20,3 +22,35 @@ class RegistroAutorList(APIView):
             autor.save()
 
             return HttpResponse("Registrado")
+
+class LoginList(APIView):
+    def post(self, request, format=None):
+        email = request.data['email']
+        password = request.data['password']
+
+        user = authenticate(username=email, password=password)
+
+        try:
+            us = Autor.objects.get(user__username=email)
+
+            if user is not None:
+                try:
+                    token=Token.objects.create(user=user)
+                except:
+                    token=Token.objects.get(user=user)
+
+                objeto={'token':token.key,'iduser':us.pk}
+
+                return HttpResponse(json.dumps(objeto),content_type="application/json")
+            else:
+                objeto={'token':"Incorrecto"}
+                
+                return HttpResponse("Incorrecto")
+        except Comensal.DoesNotExist:
+            objeto={'token':"No existe"}
+            print(objeto)
+            
+            return HttpResponse("No existe")
+
+    def get(self, request, format=None):
+        return HttpResponseRedirect("/login/")
