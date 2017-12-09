@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
+import json
 
 from apps.usuario.models import Autor
 
@@ -46,7 +48,7 @@ class LoginList(APIView):
                 objeto={'token':"Incorrecto"}
                 
                 return HttpResponse("Incorrecto")
-        except Comensal.DoesNotExist:
+        except Autor.DoesNotExist:
             objeto={'token':"No existe"}
             print(objeto)
             
