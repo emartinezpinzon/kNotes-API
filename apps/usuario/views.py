@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.views import APIView
@@ -53,6 +53,3 @@ class LoginList(APIView):
             print(objeto)
             
             return HttpResponse("No existe")
-
-    def get(self, request, format=None):
-        return HttpResponseRedirect("/login/")
