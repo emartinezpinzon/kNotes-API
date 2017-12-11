@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'apps.nota',
     'apps.usuario',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -30,6 +31,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 REST_FRAMEWORK = {
