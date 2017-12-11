@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from apps.nota.models import *
 
-class EtiquetaSerializers(serializers.ModelSerializer):
+class EtiquetaSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
 
     class Meta:
