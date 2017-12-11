@@ -5,3 +5,4 @@
 runserver.bat
 
 *migrations/
+kNote/__pycache__/
