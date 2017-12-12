@@ -46,7 +46,9 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_WHITELIST = (
     'localhost:8000',
     'localhost:3000',
-    '127.0.0.1:9000'
+    '127.0.0.1:9000',
+    'heroku.com',
+    'knote-api.herokuapp.com'
 )
 
 CORS_ORIGIN_ALLOW_ALL = True
