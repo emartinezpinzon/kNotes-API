@@ -18,5 +18,8 @@ class Nota(models.Model):
         return self.titulo
 
 class NotaEtiqueta(models.Model):
-	etiqueta=models.ForeignKey(Etiqueta)
-	nota=models.ForeignKey(Nota)
+    etiqueta=models.ForeignKey(Etiqueta)
+    nota=models.ForeignKey(Nota)
+
+    def __str__(self):
+        return str(self.etiqueta)+' - '+str(self.nota)
