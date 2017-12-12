@@ -83,13 +83,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'kNote.wsgi.application'
 
 DATABASES = {
-   'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'knote',
-        'USER': 'prefety',
-        'PASSWORD': 'TA8=mGr~@5eUU[6v',
-        'HOST': '18.220.192.155',
-        'PORT': '3306',
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dcv980mj3urblg',
+        'USER': 'eyogmiqdyhoibs',
+        'PASSWORD': 'c04bc0c611114c58a4bba4b814a48bcda71241ed4a130610360bd066bf6f692e',
+        'HOST': 'ec2-50-19-113-219.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
