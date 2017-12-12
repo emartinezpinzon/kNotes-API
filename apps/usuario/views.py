@@ -47,4 +47,5 @@ class LoginList(APIView):
             else:
                 return Response(status = status.HTTP_403_FORBIDDEN)
         except Autor.DoesNotExist:
-            return Response(status = status.HTTP_401_UNAUTHORIZED)
+            mensaje = "Autor no existe"
+            return Response(mensaje, status = status.HTTP_401_UNAUTHORIZED)
