@@ -58,3 +58,24 @@ class EtiquetaDetail(APIView):
         etiqueta.delete()
         
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class NotaList(APIView):
+    authentication_classes = (TokenAuthentication, )
+    permission_classes=(IsAuthenticated, )
+    
+    def post(self, request, format=None):
+        titulo = request.data['titulo']
+        contenido = request.data['contenido']
+        etiquetas = request.data['etiquetas']
+        autor = Autor.objects.get(id=request.user.autor_id)
+
+        nota = Nota.objects.create(titulo=titulo, contenido=contenido, autor=autor, disponbile=True)
+        nota.save()
+
+        etiquetas_list = etiquetas.split("\-")
+        for id_tag in etiquetas_list:
+            tag = Etiqueta.objects.get(id=int(id_tag))
+            nota_etiqueta = NotaEtiqueta.objects.create(etiqueta=tag, nota=nota)
+            nota_etiqueta.save()
+
+        return Response(status=status.HTTP_201_CREATED)
