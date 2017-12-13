@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
+from django.contrib.auth.models import User
 
 from apps.nota.models import *
 from apps.nota.serializers import *
@@ -25,7 +26,7 @@ class EtiquetaList(APIView):
 
     def get(self, request, format=None):
         etiquetas = Etiqueta.objects.all()
-        serializer = EtiquetaSerializer(etiquetas, many = True)
+        serializer = EtiquetaSerializer(etiquetas, many=True)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -67,7 +68,7 @@ class NotaList(APIView):
         titulo = request.data['titulo']
         contenido = request.data['contenido']
         etiquetas = request.data['etiquetas']
-        autor = Autor.objects.get(id=request.user.autor_id)
+        autor = User.objects.get(id=request.user.id)
 
         nota = Nota.objects.create(titulo=titulo, contenido=contenido, autor=autor, disponbile=True)
         nota.save()
@@ -79,3 +80,9 @@ class NotaList(APIView):
             nota_etiqueta.save()
 
         return Response(status=status.HTTP_201_CREATED)
+
+    def get(self, request, format=None):
+        notas = Nota.objects.all()
+        serializer = NotaSerializer(notas, many=True)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)

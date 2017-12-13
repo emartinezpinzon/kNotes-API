@@ -8,3 +8,10 @@ class EtiquetaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Etiqueta
         fields = ('id', 'nombre')
+
+class NotaSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
+    
+    class Meta:
+        model = Nota
+        fields = ('id', 'titulo', 'contenido', 'fecha', 'autor')
