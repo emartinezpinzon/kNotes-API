@@ -123,3 +123,13 @@ class NotaDetail(APIView):
         nota.delete()
         
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class NotaEtiquetaList(APIView):
+    authentication_classes = (TokenAuthentication, )
+    permission_classes=(IsAuthenticated, )
+
+    def get(self, request, pk, format=None):
+        notatag = NotaEtiqueta.objects.filter(etiqueta_id=pk)
+        serializer = NotaEtiquetaSerializer(notatag, many=True)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
