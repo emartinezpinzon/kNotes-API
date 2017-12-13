@@ -15,17 +15,18 @@ class EtiquetaList(APIView):
     
     def post(self, request, format=None):
         nombre = request.data['nombre']
+        autor = User.objects.get(id=request.user.id)
 
-        if Etiqueta.objects.filter(nombre = nombre).exists():
+        if Etiqueta.objects.filter(nombre=nombre).exists():
             return Response(status=status.HTTP_302_FOUND)
         else:
-            etiqueta = Etiqueta.objects.create(nombre = nombre)
+            etiqueta = Etiqueta.objects.create(nombre=nombre, autor=autor)
             etiqueta.save()
             
             return Response(status=status.HTTP_201_CREATED)
 
     def get(self, request, format=None):
-        etiquetas = Etiqueta.objects.all()
+        etiquetas = Etiqueta.objects.filter(autor_id=request.user.id)
         serializer = EtiquetaSerializer(etiquetas, many=True)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
