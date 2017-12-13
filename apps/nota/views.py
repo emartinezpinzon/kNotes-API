@@ -31,6 +31,9 @@ class EtiquetaList(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class EtiquetaDetail(APIView):
+    authentication_classes = (TokenAuthentication, )
+    permission_classes=(IsAuthenticated, )
+    
     def get_object(self, pk):
         try:
             return Etiqueta.objects.get(pk=pk)
