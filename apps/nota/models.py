@@ -1,5 +1,5 @@
 from django.db import models
-from apps.usuario.models import Autor
+from django.contrib.auth.models import User
 
 class Etiqueta(models.Model):
     nombre=models.CharField(max_length=50)
@@ -11,7 +11,7 @@ class Nota(models.Model):
     titulo=models.CharField(max_length=70)
     contenido=models.TextField(null=False)
     fecha=models.DateField(auto_now_add=True, null=False)
-    autor=models.ForeignKey(Autor)
+    autor=models.ForeignKey(User)
     disponbile=models.BooleanField()
 
     def __str__(self):
