@@ -124,12 +124,12 @@ class NotaDetail(APIView):
         
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class NotaEtiquetaList(APIView):
+class NotasEtiquetaList(APIView):
     authentication_classes = (TokenAuthentication, )
     permission_classes=(IsAuthenticated, )
 
     def get(self, request, pk, format=None):
-        notatag = NotaEtiqueta.objects.filter(etiqueta_id=pk)
+        notatag = NotaEtiqueta.objects.filter(etiqueta_id=pk).filter(nota__disponible=True)
         serializer = NotaEtiquetaSerializer(notatag, many=True)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
