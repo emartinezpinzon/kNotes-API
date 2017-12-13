@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 class Etiqueta(models.Model):
     nombre=models.CharField(max_length=50)
+    autor=models.ForeignKey(User)
 
     def __str__(self):
         return self.nombre
