@@ -82,7 +82,7 @@ class NotaList(APIView):
         return Response(status=status.HTTP_201_CREATED)
 
     def get(self, request, format=None):
-        notas = Nota.objects.all()
+        notas = Nota.objects.filter(autor_id=request.user.id).filter(disponible=True)
         serializer = NotaSerializer(notas, many=True)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
