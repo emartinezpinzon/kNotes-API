@@ -14,4 +14,13 @@ class NotaSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Nota
-        fields = ('id', 'titulo', 'contenido', 'fecha', 'disponbile')
+        fields = ('id', 'titulo', 'contenido', 'fecha')
+
+class NotaEtiquetaSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
+    etiqueta = EtiquetaSerializer(read_only=True)
+    nota = NotaSerializer(read_only=True)
+
+    class Meta:
+        model = NotaEtiqueta
+        fields = ('id', 'etiqueta', 'nota')
