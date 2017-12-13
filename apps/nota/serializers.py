@@ -14,4 +14,4 @@ class NotaSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Nota
-        fields = ('id', 'titulo', 'contenido', 'fecha', 'autor')
+        fields = ('id', 'titulo', 'contenido', 'fecha', 'disponbile')
