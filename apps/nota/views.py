@@ -133,3 +133,13 @@ class NotasEtiquetaList(APIView):
         serializer = NotaEtiquetaSerializer(notatag, many=True)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class EtiquetasNotaList(APIView):
+    authentication_classes = (TokenAuthentication, )
+    permission_classes=(IsAuthenticated, )
+
+    def get(self, request, pk, format=None):
+        notatag = NotaEtiqueta.objects.filter(nota_id=pk).filter(nota__disponible=True)
+        serializer = NotaEtiquetaSerializer(notatag, many=True)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
