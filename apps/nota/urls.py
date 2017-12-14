@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^notas/(?P<pk>[0-9]+)/$', views.NotaDetail.as_view()),
     url(r'^notas/etiqueta/(?P<pk>[0-9]+)/$', views.NotasEtiquetaList.as_view()),
     url(r'^etiquetas/nota/(?P<pk>[0-9]+)/$', views.EtiquetasNotaList.as_view()),
+    url(r'^borrar/etiqueta/(?P<pk>[0-9]+)/$', views.NotaEtiquetaDetail.as_view()),
 ]
