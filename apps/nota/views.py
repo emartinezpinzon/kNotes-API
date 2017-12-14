@@ -69,18 +69,18 @@ class NotaList(APIView):
     permission_classes=(IsAuthenticated, )
     
     def post(self, request, format=None):
+        
+        print(request.data)
+        
         titulo = request.data['titulo']
         contenido = request.data['contenido']
         etiquetas = request.data['etiquetas']
-        autor = User.objects.get(id=request.user.id)
 
-        nota = Nota.objects.create(titulo=titulo, contenido=contenido, autor=autor)
+        nota = Nota.objects.create(titulo=titulo, contenido=contenido, autor_id=request.user.id)
         nota.save()
 
-        etiquetas_list = etiquetas.split("-")
-        for id_tag in etiquetas_list:
-            tag = Etiqueta.objects.get(id=int(id_tag))
-            nota_etiqueta = NotaEtiqueta.objects.create(etiqueta=tag, nota=nota)
+        for etiqueta_id in etiquetas:
+            nota_etiqueta = NotaEtiqueta.objects.create(etiqueta_id=etiqueta_id, nota=nota)
             nota_etiqueta.save()
 
         return Response(status=status.HTTP_201_CREATED)
