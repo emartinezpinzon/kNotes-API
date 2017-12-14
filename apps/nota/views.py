@@ -79,7 +79,7 @@ class NotaList(APIView):
         nota = Nota.objects.create(titulo=titulo, contenido=contenido, autor_id=request.user.id)
         nota.save()
 
-        for etiqueta_id in etiquetas:
+        for etiqueta_id in jsondata[etiquetas]:
             nota_etiqueta = NotaEtiqueta.objects.create(etiqueta_id=etiqueta_id, nota=nota)
             nota_etiqueta.save()
 
