@@ -17,7 +17,7 @@ class EtiquetaList(APIView):
         nombre = request.data['nombre']
         autor = User.objects.get(id=request.user.id)
 
-        if Etiqueta.objects.filter(nombre=nombre).exists():
+        if Etiqueta.objects.filter(nombre=nombre).filter(autor_id=autor.id).exists():
             return Response(status=status.HTTP_302_FOUND)
         else:
             etiqueta = Etiqueta.objects.create(nombre=nombre, autor=autor)
