@@ -77,7 +77,7 @@ class NotaList(APIView):
         nota = Nota.objects.create(titulo=titulo, contenido=contenido, autor=autor)
         nota.save()
 
-        etiquetas_list = etiquetas.split("\-")
+        etiquetas_list = etiquetas.split("-")
         for id_tag in etiquetas_list:
             tag = Etiqueta.objects.get(id=int(id_tag))
             nota_etiqueta = NotaEtiqueta.objects.create(etiqueta=tag, nota=nota)
