@@ -74,7 +74,7 @@ class NotaList(APIView):
         etiquetas = request.data['etiquetas']
         autor = User.objects.get(id=request.user.id)
 
-        nota = Nota.objects.create(titulo=titulo, contenido=contenido, autor=autor, disponbile=True)
+        nota = Nota.objects.create(titulo=titulo, contenido=contenido, autor=autor)
         nota.save()
 
         etiquetas_list = etiquetas.split("\-")
@@ -86,7 +86,7 @@ class NotaList(APIView):
         return Response(status=status.HTTP_201_CREATED)
 
     def get(self, request, format=None):
-        notas = Nota.objects.filter(autor_id=request.user.id).filter(disponible=True)
+        notas = Nota.objects.filter(autor_id=request.user.id)
         serializer = NotaSerializer(notas, many=True)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -142,7 +142,7 @@ class EtiquetasNotaList(APIView):
             return Response(status=status.HTTP_201_CREATED)
 
     def get(self, request, pk, format=None):
-        notatag = NotaEtiqueta.objects.filter(nota_id=pk).filter(nota__disponible=True)
+        notatag = NotaEtiqueta.objects.filter(nota_id=pk)
         serializer = NotaEtiquetaSerializer(notatag, many=True)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -152,7 +152,7 @@ class NotasEtiquetaList(APIView):
     permission_classes=(IsAuthenticated, )
 
     def get(self, request, pk, format=None):
-        notatag = NotaEtiqueta.objects.filter(etiqueta_id=pk).filter(nota__disponible=True)
+        notatag = NotaEtiqueta.objects.filter(etiqueta_id=pk)
         serializer = NotaEtiquetaSerializer(notatag, many=True)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
