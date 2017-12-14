@@ -85,8 +85,8 @@ class NotaList(APIView):
         print("--------------------------------     T     A     G     S     --------------------------------")
         print(etiquetas)
 
-        for etiqueta_id in etiquetas:
-            nota_etiqueta = NotaEtiqueta.objects.create(etiqueta_id=etiqueta_id, nota=nota)
+        for etiqueta in etiquetas:
+            nota_etiqueta = NotaEtiqueta.objects.create(etiqueta_id=etiqueta.id, nota=nota)
             nota_etiqueta.save()
 
         return Response(status=status.HTTP_201_CREATED)
