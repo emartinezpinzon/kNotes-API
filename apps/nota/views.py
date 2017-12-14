@@ -129,12 +129,14 @@ class EtiquetasNotaList(APIView):
     permission_classes=(IsAuthenticated, )
 
     def post(self, request, pk, format=None):
-        nota_id = request.data['id_nota']
+        etiqueta_id = request.data['etiqueta_id']
         
-        if NotaEtiqueta.objects.filter(etiqueta_id=pk).filter(nota_id=nota_id).exists():
-            etiqueta = Etiqueta.objects.get(id=pk)
-            nota = Nota.objects.get(id=nota_id)
-            nota_etiqueta = NotaEtiqueta.objects.create(etiqueta=tag, nota=nota)
+        if NotaEtiqueta.objects.filter(etiqueta_id=etiqueta_id).filter(nota_id=pk).exists():
+            return Response(status=status.HTTP_302_FOUND)
+        else:
+            etiqueta = Etiqueta.objects.get(id=etiqueta_id)
+            nota = Nota.objects.get(id=pk)
+            nota_etiqueta = NotaEtiqueta.objects.create(etiqueta=etiqueta, nota=nota)
             nota_etiqueta.save()
 
             return Response(status=status.HTTP_201_CREATED)
