@@ -128,19 +128,3 @@ class NotasEtiquetaList(APIView):
         serializer = NotaEtiquetaSerializer(notatag, many=True)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-class NotaEtiquetaDetail(APIView):
-    authentication_classes = (TokenAuthentication, )
-    permission_classes=(IsAuthenticated, )
-
-    def get_object(self, pk):
-        try:
-            return NotaEtiqueta.objects.get(pk=pk)
-        except NotaEtiqueta.DoesNotExist:
-            raise Response(status=status.HTTP_404_NOT_FOUND)
-
-    def delete(self, request, pk, format=None):
-        notatag = self.get_object(pk)
-        notatag.delete()
-        
-        return Response(status=status.HTTP_204_NO_CONTENT)
