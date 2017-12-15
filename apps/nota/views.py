@@ -119,29 +119,6 @@ class NotaDetail(APIView):
         
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class EtiquetasNotaList(APIView):
-    authentication_classes = (TokenAuthentication, )
-    permission_classes=(IsAuthenticated, )
-
-    def post(self, request, pk, format=None):
-        etiqueta_id = request.data['etiqueta_id']
-        
-        if NotaEtiqueta.objects.filter(etiqueta_id=etiqueta_id).filter(nota_id=pk).exists():
-            return Response(status=status.HTTP_302_FOUND)
-        else:
-            etiqueta = Etiqueta.objects.get(id=etiqueta_id)
-            nota = Nota.objects.get(id=pk)
-            nota_etiqueta = NotaEtiqueta.objects.create(etiqueta=etiqueta, nota=nota)
-            nota_etiqueta.save()
-
-            return Response(status=status.HTTP_201_CREATED)
-
-    def get(self, request, pk, format=None):
-        notatag = NotaEtiqueta.objects.filter(nota_id=pk)
-        serializer = NotaEtiquetaSerializer(notatag, many=True)
-        
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
 class NotasEtiquetaList(APIView):
     authentication_classes = (TokenAuthentication, )
     permission_classes=(IsAuthenticated, )
