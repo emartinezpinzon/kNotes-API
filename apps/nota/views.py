@@ -124,7 +124,7 @@ class NotasEtiquetaList(APIView):
     permission_classes=(IsAuthenticated, )
 
     def get(self, request, pk, format=None):
-        notatag = NotaEtiqueta.objects.filter(etiqueta_id=pk)
-        serializer = NotaEtiquetaSerializer(notatag, many=True)
+        notatag = Nota.objects.filter(etiqueta_id=pk)
+        serializer = NotaSerializer(notatag, many=True)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
