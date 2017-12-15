@@ -74,16 +74,17 @@ class NotaList(APIView):
         
         titulo = request.data['titulo']
         contenido = request.data['contenido']
-        etiquetas = request.data['etiquetas']
+        etiquetas = request.data['etiquetas[]']
 
         nota = Nota.objects.create(titulo=titulo, contenido=contenido, autor_id=request.user.id)
         nota.save()
 
 
-        print("--------------------------------     T     A     G     S     --------------------------------")
+        print("-----------------------     T     A     G     S     -----------------------")
         print(etiquetas)
 
         for etiqueta in etiquetas:
+            print("Etiqueta: "+etiqueta)
             nota_etiqueta = NotaEtiqueta.objects.create(etiqueta_id=etiqueta, nota=nota)
             nota_etiqueta.save()
 
