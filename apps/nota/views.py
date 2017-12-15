@@ -73,7 +73,8 @@ class NotaList(APIView):
         
         titulo = request.data['titulo']
         contenido = request.data['contenido']
-        etiquetas = request.data['etiquetas[]']
+        etiquetas = EtiquetaIDSerializer(data=request.data['etiquetas[]'])
+        etiquetasList = etiquetas.data['tag_ids']
 
         nota = Nota.objects.create(titulo=titulo, contenido=contenido, autor_id=request.user.id)
         nota.save()
@@ -82,7 +83,7 @@ class NotaList(APIView):
         print(etiquetas)
         print("-----------------------     T     A     G     S     -----------------------")
 
-        for etiqueta in etiquetas:
+        for etiqueta in etiquetasList:
             print("Etiqueta: "+etiqueta)
             #nota_etiqueta = NotaEtiqueta.objects.create(etiqueta_id=etiqueta, nota=nota)
             #nota_etiqueta.save()

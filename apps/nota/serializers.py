@@ -9,6 +9,9 @@ class EtiquetaSerializer(serializers.ModelSerializer):
         model = Etiqueta
         fields = ('id', 'nombre')
 
+class EtiquetaIDSerializer(serializers.ModelSerializer):
+    tag_ids = serializers.ListField(child=serializers.IntegerField())
+
 class NotaSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
     
