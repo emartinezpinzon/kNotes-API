@@ -13,7 +13,7 @@ class Nota(models.Model):
     contenido=models.TextField(null=False)
     fecha=models.DateField(auto_now_add=True, null=False)
     autor=models.ForeignKey(User)
-    etiqueta=models.ForeignKey(Etiqueta)
+    etiqueta=models.ForeignKey(Etiqueta, null=True)
 
     def __str__(self):
         return self.titulo
