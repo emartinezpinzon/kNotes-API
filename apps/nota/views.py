@@ -102,16 +102,23 @@ class NotaDetail(APIView):
         
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def put(self, request, pk, format=None):
+    def update(self, request, pk, format=None):
         nota = self.get_object(pk)
-        serializer = NotaSerializer(nota, data=request.data)
 
-        if serializer.is_valid():
-            serializer.save()
+        titulo = request.data['titulo']
+        contenido = request.data['contenido']
+        etiqueta_id = request.data['etiqueta_id']
+
+        try:
+            nota.titulo = titulo
+            nota.contenido = contenido
+            nota.etiqueta_id = etiqueta_id
+            
+            nota.save()
             
             return Response(serializer.data, status=status.HTTP_200_OK)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Etiqueta.DoesNotExist:
+            raise Response(status=status.HTTP_404_NOT_FOUND)
 
     def delete(self, request, pk, format=None):
         nota = self.get_object(pk)
