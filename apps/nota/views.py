@@ -116,7 +116,7 @@ class NotaDetail(APIView):
             
             nota.save()
             
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK)
         except Etiqueta.DoesNotExist:
             raise Response(status=status.HTTP_404_NOT_FOUND)
 
