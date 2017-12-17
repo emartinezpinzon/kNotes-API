@@ -84,6 +84,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'kNote.wsgi.application'
 
+# Configuración para conexión a la base de datos
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

@@ -11,7 +11,8 @@ from apps.nota.serializers import *
 class EtiquetaList(APIView):
     authentication_classes = (TokenAuthentication, )
     permission_classes=(IsAuthenticated, )
-    
+
+    #Registra una etiqueta
     def post(self, request, format=None):
         nombre = request.data['nombre']
         autor = User.objects.get(id=request.user.id)
@@ -24,6 +25,7 @@ class EtiquetaList(APIView):
             
             return Response(status=status.HTTP_201_CREATED)
 
+    #Lista las etiquetas del autor
     def get(self, request, format=None):
         etiquetas = Etiqueta.objects.filter(autor_id=request.user.id)
         serializer = EtiquetaSerializer(etiquetas, many=True)
@@ -33,19 +35,22 @@ class EtiquetaList(APIView):
 class EtiquetaDetail(APIView):
     authentication_classes = (TokenAuthentication, )
     permission_classes=(IsAuthenticated, )
-    
+
+    #Obtiene una etiqueta por su ID
     def get_object(self, pk):
         try:
             return Etiqueta.objects.get(pk=pk)
         except Etiqueta.DoesNotExist:
             raise Response(status=status.HTTP_404_NOT_FOUND)
 
+    #Obtiene la información de una etiqueta
     def get(self, request, pk, format=None):
         etiqueta = self.get_object(pk)
         serializer = EtiquetaSerializer(etiqueta)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    #Actualiza la información de una etiqueta
     def put(self, request, pk, format=None):
         etiqueta = self.get_object(pk)
         serializer = EtiquetaSerializer(etiqueta, data=request.data)
@@ -57,6 +62,7 @@ class EtiquetaDetail(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    #Elimina una etiqueta
     def delete(self, request, pk, format=None):
         etiqueta = self.get_object(pk)
         etiqueta.delete()
@@ -67,10 +73,8 @@ class NotaList(APIView):
     authentication_classes = (TokenAuthentication, )
     permission_classes=(IsAuthenticated, )
 
+    #Registra una nota
     def post(self, request, format=None):
-        
-        print(request.data)
-        
         titulo = request.data['titulo']
         contenido = request.data['contenido']
         etiqueta = request.data['etiqueta']
@@ -80,6 +84,7 @@ class NotaList(APIView):
 
         return Response(status=status.HTTP_201_CREATED)
 
+    #Obtiene una lista de todas las notas del autor
     def get(self, request, format=None):
         notas = Nota.objects.filter(autor_id=request.user.id)
         serializer = NotaSerializer(notas, many=True)
@@ -90,18 +95,21 @@ class NotaDetail(APIView):
     authentication_classes = (TokenAuthentication, )
     permission_classes=(IsAuthenticated, )
 
+    #Obtiene una nota por su ID
     def get_object(self, pk):
         try:
             return Nota.objects.get(pk=pk)
         except Nota.DoesNotExist:
             raise Response(status=status.HTTP_404_NOT_FOUND)
 
+    #Obtiene la información de una nota
     def get(self, request, pk, format=None):
         nota = self.get_object(pk)
         serializer = NotaSerializer(nota)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    #Actualiza la información de una nota
     def put(self, request, pk, format=None):
         nota = self.get_object(pk)
 
@@ -120,6 +128,7 @@ class NotaDetail(APIView):
         except Etiqueta.DoesNotExist:
             raise Response(status=status.HTTP_404_NOT_FOUND)
 
+    #Elimina una nota
     def delete(self, request, pk, format=None):
         nota = self.get_object(pk)
         nota.delete()
@@ -130,6 +139,7 @@ class NotasEtiquetaList(APIView):
     authentication_classes = (TokenAuthentication, )
     permission_classes=(IsAuthenticated, )
 
+    #Obtiene una lista de todas las notas por etiqueta
     def get(self, request, pk, format=None):
         notatag = Nota.objects.filter(etiqueta_id=pk)
         serializer = NotaSerializer(notatag, many=True)

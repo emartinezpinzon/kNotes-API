@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 import json
 
+#Registro de nuevos usuarios
 class RegistroList(APIView):
     def post(self, request, format = None):
         nombre = request.data['nombre']
@@ -22,6 +23,7 @@ class RegistroList(APIView):
 
             return Response(status=status.HTTP_201_CREATED)
 
+#Inicio de sesión para usuarios registrados
 class LoginList(APIView):
     def post(self, request, format=None):
         email = request.data['email']
